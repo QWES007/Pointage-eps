@@ -24,8 +24,8 @@ export default function App() {
   }
 
   return (
-    <div className="relative min-h-screen bg-gray-900 text-white">
-      {/* Bouton discret d'accès administrateur en haut à droite */}
+    <div className="relative min-h-screen bg-gray-900 text-white flex flex-col items-center justify-center">
+      {/* Bouton d'accès administrateur calé en haut à droite */}
       <button 
         onClick={() => setShowAdmin(true)}
         className="absolute top-4 right-4 bg-indigo-600 hover:bg-indigo-700 text-white text-xs px-3 py-1.5 rounded-md shadow z-50 transition"
