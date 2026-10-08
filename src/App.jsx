@@ -26,18 +26,8 @@ export default function App() {
   }
 
   return (
-    <div className="fixed inset-0 w-screen h-screen overflow-hidden flex items-center justify-center">
-      {/* 1. Image du stade en arrière-plan absolu */}
-      <img 
-        src="/stadium-bg.jpg" 
-        alt="Stadion Background" 
-        className="absolute inset-0 w-full h-full object-cover z-0"
-      />
-
-      {/* 2. Voile sombre réglable pour transformer le stade en filigrane discret */}
-      <div className="absolute inset-0 bg-black/75 backdrop-blur-[2px] z-10"></div>
-
-      {/* 3. Bouton d'accès administrateur en haut à droite */}
+    <div className="fixed inset-0 w-screen h-screen flex flex-col md:flex-row bg-slate-900 overflow-hidden">
+      {/* Bouton d'accès administrateur flottant en haut à droite */}
       <div className="absolute top-6 right-6 z-30">
         <button 
           onClick={() => setShowAdmin(true)}
@@ -47,19 +37,39 @@ export default function App() {
         </button>
       </div>
 
-      {/* 4. Carte de connexion / formulaire parfaitement centrée au milieu */}
-      <div className="relative z-20 w-full max-w-md mx-4 bg-gray-900/85 backdrop-blur-xl border border-white/20 p-8 rounded-3xl shadow-2xl flex flex-col items-center">
-        <div className="text-center mb-6 w-full">
-          <h1 className="text-3xl font-extrabold text-white tracking-wide mb-1">Pointage EPS</h1>
-          <p className="text-gray-300 text-sm">Espace de pointage des enseignants</p>
-        </div>
+      {/* Colonne Gauche : L'image complète du stade (non masquée, nette) */}
+      <div className="w-full md:w-1/2 h-1/2 md:h-full relative overflow-hidden bg-black">
+        <img 
+          src="/stadium-bg.jpg" 
+          alt="Stade EPS" 
+          className="w-full h-full object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent md:hidden"></div>
+      </div>
 
-        <div className="w-full flex flex-col items-center">
-          {!teacher ? (
-            <Login onLoginSuccess={(teacherData) => setTeacher(teacherData)} />
-          ) : (
-            <Dashboard teacher={teacher} onLogout={() => setTeacher(null)} />
-          )}
+      {/* Colonne Droite : Espace de connexion moderne avec effet glassmorphism épuré */}
+      <div className="w-full md:w-1/2 h-1/2 md:h-full flex items-center justify-center p-6 sm:p-12 bg-slate-900/95 relative z-20">
+        <div className="w-full max-w-md bg-white/10 backdrop-blur-2xl border border-white/20 p-8 rounded-3xl shadow-2xl flex flex-col items-center">
+          
+          {/* Icône / En-tête style carte login */}
+          <div className="w-16 h-16 bg-indigo-600 rounded-2xl flex items-center justify-center shadow-lg mb-4 border border-indigo-400/30">
+            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
+          </div>
+
+          <div className="text-center mb-6 w-full">
+            <h1 className="text-3xl font-extrabold text-white tracking-wide mb-1">Pointage EPS</h1>
+            <p className="text-gray-300 text-sm">Connexion à l'espace enseignant</p>
+          </div>
+
+          <div className="w-full flex flex-col items-center">
+            {!teacher ? (
+              <Login onLoginSuccess={(teacherData) => setTeacher(teacherData)} />
+            ) : (
+              <Dashboard teacher={teacher} onLogout={() => setTeacher(null)} />
+            )}
+          </div>
         </div>
       </div>
     </div>
