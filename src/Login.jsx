@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { supabase } from './supabaseClient'; // Assurez-vous que le chemin vers votre client Supabase est correct
+import { supabase } from './supabaseClient';
 
 export default function Login({ onLoginSuccess }) {
   const [phone, setPhone] = useState('');
@@ -13,12 +13,12 @@ export default function Login({ onLoginSuccess }) {
     setError('');
     
     try {
-      // Interrogation de la base de données Supabase pour authentifier l'enseignant
+      // Correction : on interroge directement la table 'teachers'
       const { data, error: sbError } = await supabase
-        .from('v_attendance_with_teachers') // ou votre table de référence des enseignants
+        .from('teachers')
         .select('*')
-        .eq('phone', phone)
-        .eq('password', password)
+        .eq('phone', phone.trim())
+        .eq('password', password.trim())
         .single();
 
       if (sbError || !data) {
@@ -47,7 +47,7 @@ export default function Login({ onLoginSuccess }) {
           type="text" 
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
-          placeholder="Ex: 0700000000" 
+          placeholder="Ex: 0708033118" 
           required
           className="w-full px-4 py-3 bg-black/40 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-indigo-500 transition text-sm"
         />
