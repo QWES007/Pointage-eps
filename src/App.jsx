@@ -24,20 +24,25 @@ export default function App() {
   }
 
   return (
-    <div className="relative min-h-screen bg-gray-900 text-white flex flex-col items-center justify-center">
-      {/* Bouton d'accès administrateur calé en haut à droite */}
-      <button 
-        onClick={() => setShowAdmin(true)}
-        className="absolute top-4 right-4 bg-indigo-600 hover:bg-indigo-700 text-white text-xs px-3 py-1.5 rounded-md shadow z-50 transition"
-      >
-        Accès Admin
-      </button>
+    <div className="relative w-full min-h-screen bg-gray-900 text-white">
+      {/* Bouton d'accès administrateur parfaitement calé en haut à droite */}
+      <div className="absolute top-4 right-4 z-50">
+        <button 
+          onClick={() => setShowAdmin(true)}
+          className="bg-indigo-600 hover:bg-indigo-700 text-white text-xs px-3 py-1.5 rounded-md shadow transition"
+        >
+          Accès Admin
+        </button>
+      </div>
 
-      {!teacher ? (
-        <Login onLoginSuccess={(teacherData) => setTeacher(teacherData)} />
-      ) : (
-        <Dashboard teacher={teacher} onLogout={() => setTeacher(null)} />
-      )}
+      {/* Contenu central */}
+      <div className="flex flex-col items-center justify-center min-h-screen">
+        {!teacher ? (
+          <Login onLoginSuccess={(teacherData) => setTeacher(teacherData)} />
+        ) : (
+          <Dashboard teacher={teacher} onLogout={() => setTeacher(null)} />
+        )}
+      </div>
     </div>
   );
 }
