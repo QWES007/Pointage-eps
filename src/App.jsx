@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Login from './Login';
 import Dashboard from './Dashboard';
 import AdminDashboard from './AdminDashboard';
-import stadiumBg from './assets/stadium-bg.jpg'; // Import de votre image (ajustez le chemin si besoin)
 
 export default function App() {
   const [teacher, setTeacher] = useState(null);
@@ -12,7 +11,7 @@ export default function App() {
     return (
       <div 
         className="min-h-screen bg-cover bg-center p-4 relative"
-        style={{ backgroundImage: `url(${stadiumBg})` }}
+        style={{ backgroundImage: `url('/stadium-bg.jpg')` }}
       >
         {/* Voile sombre pour la lisibilité */}
         <div className="absolute inset-0 bg-black/70 backdrop-blur-sm z-0"></div>
@@ -35,12 +34,12 @@ export default function App() {
   return (
     <div 
       className="relative w-full min-h-screen bg-cover bg-center flex flex-col items-center justify-center p-4"
-      style={{ backgroundImage: `url(${stadiumBg})` }}
+      style={{ backgroundImage: `url('/stadium-bg.jpg')` }}
     >
-      {/* Voile sombre semi-transparent en arrière-plan pour faire ressortir les formulaires */}
+      {/* Voile sombre semi-transparent en arrière-plan */}
       <div className="absolute inset-0 bg-black/60 backdrop-blur-xs z-0"></div>
 
-      {/* Bouton d'accès administrateur parfaitement calé en haut à droite */}
+      {/* Bouton d'accès administrateur calé en haut à droite */}
       <div className="absolute top-4 right-4 z-50">
         <button 
           onClick={() => setShowAdmin(true)}
@@ -50,7 +49,7 @@ export default function App() {
         </button>
       </div>
 
-      {/* Contenu central dynamique avec effet de carte moderne */}
+      {/* Contenu central dynamique et centré */}
       <div className="relative z-10 w-full max-w-md flex flex-col items-center justify-center">
         {!teacher ? (
           <Login onLoginSuccess={(teacherData) => setTeacher(teacherData)} />
