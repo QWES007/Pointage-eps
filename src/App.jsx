@@ -7,14 +7,23 @@ export default function App() {
   const [teacher, setTeacher] = useState(null);
   const [showAdmin, setShowAdmin] = useState(false);
 
+  // Style d'arrière-plan commun pour les deux vues
+  const bgStyle = {
+    backgroundImage: `url('/stadium-bg.jpg')`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    backgroundAttachment: 'fixed' // Garde l'image fixe pendant le scroll
+  };
+
   if (showAdmin) {
     return (
       <div 
-        className="min-h-screen bg-cover bg-center p-4 relative"
-        style={{ backgroundImage: `url('/stadium-bg.jpg')` }}
+        className="min-h-screen p-4 relative"
+        style={bgStyle}
       >
-        {/* Voile sombre pour la lisibilité */}
-        <div className="absolute inset-0 bg-black/70 backdrop-blur-sm z-0"></div>
+        {/* Voile sombre semi-transparent pour la lisibilité */}
+        <div className="absolute inset-0 bg-black/60 z-0"></div>
         
         <div className="relative z-10 max-w-7xl mx-auto mb-4">
           <button 
@@ -33,13 +42,13 @@ export default function App() {
 
   return (
     <div 
-      className="relative w-full min-h-screen bg-cover bg-center flex flex-col items-center justify-center p-4"
-      style={{ backgroundImage: `url('/stadium-bg.jpg')` }}
+      className="relative w-full min-h-screen flex flex-col items-center justify-center p-4"
+      style={bgStyle}
     >
       {/* Voile sombre semi-transparent en arrière-plan */}
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-xs z-0"></div>
+      <div className="absolute inset-0 bg-black/50 z-0"></div>
 
-      {/* Bouton d'accès administrateur calé en haut à droite */}
+      {/* Bouton d'accès administrateur parfaitement calé en haut à droite */}
       <div className="absolute top-4 right-4 z-50">
         <button 
           onClick={() => setShowAdmin(true)}
