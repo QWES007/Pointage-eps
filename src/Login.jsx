@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// Importez vos clients ou méthodes supabase si nécessaire
+import { supabase } from './supabaseClient'; // Assurez-vous que le chemin vers votre client Supabase est correct
 
 export default function Login({ onLoginSuccess }) {
   const [phone, setPhone] = useState('');
@@ -12,7 +12,25 @@ export default function Login({ onLoginSuccess }) {
     setLoading(true);
     setError('');
     
-    // Votre logique de connexion existante...
+    try {
+      // Interrogation de la base de données Supabase pour authentifier l'enseignant
+      const { data, error: sbError } = await supabase
+        .from('v_attendance_with_teachers') // ou votre table de référence des enseignants
+        .select('*')
+        .eq('phone', phone)
+        .eq('password', password)
+        .single();
+
+      if (sbError || !data) {
+        setError('Numéro de téléphone ou mot de passe incorrect.');
+      } else {
+        onLoginSuccess(data);
+      }
+    } catch (err) {
+      setError('Erreur de connexion au serveur.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -50,7 +68,7 @@ export default function Login({ onLoginSuccess }) {
       <button 
         type="submit" 
         disabled={loading}
-        className="w-full mt-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-xl shadow-lg border border-indigo-400/30 transition transform hover:scale-[1.02] text-sm flex items-center justify-center"
+        className="w-full mt-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-xl shadow-lg border border-indigo-400/30 transition transform hover:scale-[1.02] text-sm flex items-center justify-center cursor-pointer"
       >
         {loading ? "Connexion en cours..." : "Se connecter"}
       </button>
